@@ -194,6 +194,8 @@ return [
         'prefix' => 'view',
         'exclude' => [
             \Filament\Pages\Dashboard::class,
+            // \Boquizo\FilamentLogViewer\Pages\ListLogs::class,
+            \Boquizo\FilamentLogViewer\Pages\ViewLog::class,
         ],
     ],
 

@@ -69,9 +69,12 @@ class AdminPanelProvider extends PanelProvider
                 ),
                 FilamentLoggerPlugin::make(),
                 FilamentGeneralSettingsPlugin::make()
+                    ->canAccess(value: fn() => auth()->user()->can('View:GeneralSettingsPage'))
                     ->setNavigationGroup('Settings')
                     ->setIcon('heroicon-o-cog'),
-                FilamentLogViewerPlugin::make()->navigationLabel('Log File Viewer')
+                FilamentLogViewerPlugin::make()
+                    ->navigationLabel('Log File Viewer')
+                    ->authorize(fn (): bool => auth()->user()->can('View:ListLogs')),
             ])
             ->authMiddleware([
                 Authenticate::class,
