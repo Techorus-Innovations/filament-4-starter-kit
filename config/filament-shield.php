@@ -174,7 +174,7 @@ return [
             ],
         ],
         'exclude' => [
-            //
+            \Jacobtims\FilamentLogger\Resources\ActivityResource::class,
         ],
     ],
 
