@@ -20,7 +20,7 @@ return [
             Jacobtims\FilamentLogger\Resources\ActivityResource::class,
         ],
         'cluster' => null,
-        'navigation_group' => 'Settings',
+        'navigation_group' => 'Logs',
     ],
 
     'access' => [

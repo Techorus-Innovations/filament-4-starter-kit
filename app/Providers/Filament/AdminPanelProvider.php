@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use Filament\Http\Middleware\Authenticate;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use Boquizo\FilamentLogViewer\FilamentLogViewerPlugin;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -69,7 +70,8 @@ class AdminPanelProvider extends PanelProvider
                 FilamentLoggerPlugin::make(),
                 FilamentGeneralSettingsPlugin::make()
                     ->setNavigationGroup('Settings')
-                    ->setIcon('heroicon-o-cog')
+                    ->setIcon('heroicon-o-cog'),
+                FilamentLogViewerPlugin::make()->navigationLabel('Log File Viewer')
             ])
             ->authMiddleware([
                 Authenticate::class,
