@@ -21,6 +21,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Jacobtims\FilamentLogger\FilamentLoggerPlugin;
 use Jeffgreco13\FilamentBreezy\BreezyCore;
+use Joaopaulolndev\FilamentGeneralSettings\FilamentGeneralSettingsPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -66,6 +67,9 @@ class AdminPanelProvider extends PanelProvider
                     slug: 'my-profile' // Sets the slug for the profile page (default = 'my-profile')
                 ),
                 FilamentLoggerPlugin::make(),
+                FilamentGeneralSettingsPlugin::make()
+                    ->setNavigationGroup('Settings')
+                    ->setIcon('heroicon-o-cog')
             ])
             ->authMiddleware([
                 Authenticate::class,
