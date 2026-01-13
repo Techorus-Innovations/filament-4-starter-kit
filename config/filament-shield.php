@@ -193,7 +193,7 @@ return [
         'subject' => 'class',
         'prefix' => 'view',
         'exclude' => [
-            \Filament\Pages\Dashboard::class,
+            \Filament\Admin\Pages\Dashboard::class,
             // \Boquizo\FilamentLogViewer\Pages\ListLogs::class,
             \Boquizo\FilamentLogViewer\Pages\ViewLog::class,
             \Jeffgreco13\FilamentBreezy\Pages\MyProfilePage::class,
@@ -215,8 +215,8 @@ return [
         'subject' => 'class',
         'prefix' => 'view',
         'exclude' => [
-            \Filament\Widgets\AccountWidget::class,
-            \Filament\Widgets\FilamentInfoWidget::class,
+            \Filament\Admin\Widgets\AccountWidget::class,
+            \Filament\Admin\Widgets\FilamentInfoWidget::class,
         ],
     ],
 
