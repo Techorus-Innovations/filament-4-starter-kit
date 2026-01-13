@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use DiogoGPinto\AuthUIEnhancer\AuthUIEnhancerPlugin;
 use Filament\Http\Middleware\Authenticate;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Boquizo\FilamentLogViewer\FilamentLogViewerPlugin;
@@ -33,6 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
             ->colors([
                 'primary' => GeneralSetting::first()->theme_color ?? Color::Amber,
@@ -77,6 +79,7 @@ class AdminPanelProvider extends PanelProvider
                 FilamentLogViewerPlugin::make()
                     ->navigationLabel('Log File Viewer')
                     ->authorize(fn (): bool => auth()->user()->can('View:ListLogs')),
+                AuthUIEnhancerPlugin::make(),
             ])
             ->authMiddleware([
                 Authenticate::class,
