@@ -30,6 +30,13 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        try {
+            $generalSettings = \Illuminate\Support\Facades\Schema::hasTable('general_settings')
+                ? GeneralSetting::first()
+                : null;
+        } catch (\Throwable) {
+            $generalSettings = null;
+        }
         return $panel
             ->default()
             ->id('admin')
@@ -37,9 +44,9 @@ class AdminPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
             ->colors([
-                'primary' => GeneralSetting::first()->theme_color ?? Color::Amber,
+                'primary' => $generalSettings->theme_color ?? Color::Amber,
             ])
-             ->brandName(GeneralSetting::first()->site_name)
+             ->brandName($generalSettings?->site_name ?? config('app.name', 'Starter Kit'))
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\Filament\Admin\Resources')
             ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\Filament\Admin\Pages')
             ->pages([
