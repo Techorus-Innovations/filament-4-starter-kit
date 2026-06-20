@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use DiogoGPinto\AuthUIEnhancer\AuthUIEnhancerPlugin;
 use Filament\Http\Middleware\Authenticate;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Boquizo\FilamentLogViewer\FilamentLogViewerPlugin;
@@ -29,6 +30,13 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        try {
+            $generalSettings = \Illuminate\Support\Facades\Schema::hasTable('general_settings')
+                ? GeneralSetting::first()
+                : null;
+        } catch (\Throwable) {
+            $generalSettings = null;
+        }
         return $panel
             ->default()
             ->id('admin')
@@ -36,15 +44,15 @@ class AdminPanelProvider extends PanelProvider
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->login()
             ->colors([
-                'primary' => GeneralSetting::first()->theme_color ?? Color::Amber,
+                'primary' => $generalSettings->theme_color ?? Color::Amber,
             ])
-             ->brandName(GeneralSetting::first()->site_name)
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
+             ->brandName($generalSettings?->site_name ?? config('app.name', 'Starter Kit'))
+            ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\Filament\Admin\Resources')
+            ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\Filament\Admin\Pages')
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\Filament\Admin\Widgets')
             ->widgets([
                 AccountWidget::class,
                 FilamentInfoWidget::class,
@@ -78,6 +86,7 @@ class AdminPanelProvider extends PanelProvider
                 FilamentLogViewerPlugin::make()
                     ->navigationLabel('Log File Viewer')
                     ->authorize(fn (): bool => auth()->user()->can('View:ListLogs')),
+                AuthUIEnhancerPlugin::make(),
             ])
             ->authMiddleware([
                 Authenticate::class,

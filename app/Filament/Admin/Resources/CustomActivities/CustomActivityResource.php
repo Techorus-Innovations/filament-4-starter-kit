@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\CustomActivities;
+namespace App\Filament\Admin\Resources\CustomActivities;
 
 use App\Filament\Resources\CustomActivities\Pages\CreateCustomActivity;
 use App\Filament\Resources\CustomActivities\Pages\EditCustomActivity;

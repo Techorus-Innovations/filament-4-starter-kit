@@ -5,7 +5,7 @@ return [
     'date_format' => 'd/m/Y',
 
     // 'activity_resource' => \Jacobtims\FilamentLogger\Resources\ActivityResource::class,
-    'activity_resource' => \App\Filament\Resources\CustomActivities\CustomActivityResource::class,
+    'activity_resource' => \App\Filament\Admin\Resources\CustomActivities\CustomActivityResource::class,
     'scoped_to_tenant' => true,
     'navigation_sort' => null,
 
@@ -16,7 +16,7 @@ return [
         'color' => 'success',
 
         'exclude' => [
-            App\Filament\Resources\CustomActivities\CustomActivityResource::class,
+            App\Filament\Admin\Resources\CustomActivities\CustomActivityResource::class,
             Jacobtims\FilamentLogger\Resources\ActivityResource::class,
         ],
         'cluster' => null,
